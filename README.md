@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EduNex AI Tutor
 
-## Getting Started
+EduNex AI Tutor is a full-stack adaptive learning platform that explains topics through a learner's interests. The frontend is built with Next.js 14 and Tailwind CSS, and the backend is a FastAPI service with Groq-powered tutoring, MongoDB persistence, and optional Redis-backed short-term memory.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Interest-based explanations tailored to topics like gaming, cricket, music, coding, and more
+- Modern Next.js dashboard with onboarding, chat, profile, and progress views
+- FastAPI backend with modular chat, user, and progress APIs
+- MongoDB for long-term user and chat storage
+- Redis support for short-term conversational memory and caching
+- Groq LLM integration with graceful fallback behavior when the API key is missing
+
+## Tech Stack
+
+- Frontend: Next.js 14, React 18, TypeScript, Tailwind CSS, Zustand, React Query, Recharts, Framer Motion
+- Backend: FastAPI, Uvicorn, Pydantic v2, Loguru
+- Data: MongoDB, Redis
+- AI: Groq API
+
+## Project Structure
+
+```text
+edunex-ai-tutor/
+|-- src/                  # Next.js app, components, store, hooks, utilities
+|-- backend/
+|   |-- app/
+|   |   |-- api/          # FastAPI route modules
+|   |   |-- core/         # Settings and shared config
+|   |   |-- db/           # MongoDB and Redis clients
+|   |   |-- models/       # MongoDB document helpers
+|   |   |-- schemas/      # Pydantic request/response schemas
+|   |   |-- services/     # AI, interest detection, memory logic
+|   |   `-- utils/        # Prompt builders and utilities
+|   |-- requirements.txt
+|   `-- .env.example
+|-- package.json
+`-- README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Frontend Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Install dependencies and start the frontend:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+Frontend runs at `http://localhost:3000`.
 
-To learn more about Next.js, take a look at the following resources:
+## Backend Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create and activate a virtual environment, then install backend dependencies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-## Deploy on Vercel
+Copy `.env.example` to `.env` and fill in your values.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Start the backend:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+```
+
+Backend docs are available at `http://127.0.0.1:8000/docs`.
+
+## Environment Variables
+
+Backend uses these main variables:
+
+- `GROQ_API_KEY`
+- `GROQ_MODEL`
+- `MONGODB_URL`
+- `MONGODB_DB_NAME`
+- `REDIS_URL`
+- `APP_NAME`
+- `APP_VERSION`
+- `DEBUG`
+- `CORS_ORIGINS`
+- `CHAT_MEMORY_TTL`
+- `MAX_MEMORY_MESSAGES`
+
+See [backend/.env.example](./backend/.env.example) for the full template.
+
+## Notes
+
+- MongoDB is expected for persistent storage.
+- Redis is optional; if unavailable, the backend runs in degraded mode without cache.
+- If `GROQ_API_KEY` is not configured, AI responses fall back to a local helper response.
+
+## License
+
+This project is currently unlicensed unless you add a license file to the repository.

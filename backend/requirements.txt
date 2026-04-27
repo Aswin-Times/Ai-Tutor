@@ -1,0 +1,28 @@
+# ============================================
+# EduNex AI Tutor — Backend Dependencies
+# ============================================
+
+# Web Framework
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+
+# Data Validation
+pydantic==2.10.4
+pydantic-settings==2.7.1
+
+# Database
+motor==3.6.0          # Async MongoDB driver (includes pymongo)
+
+# Cache / Memory
+redis[hiredis]==5.2.1
+
+# AI / LLM
+groq==0.15.0
+
+# Utilities
+python-dotenv==1.0.1
+python-multipart==0.0.20
+httpx==0.28.1
+
+# Logging
+loguru==0.7.3
