@@ -1,99 +1,215 @@
-# EduNex AI Tutor
+# 🎓 EduNex AI Tutor
 
-EduNex AI Tutor is a full-stack adaptive learning platform that explains topics through a learner's interests. The frontend is built with Next.js 14 and Tailwind CSS, and the backend is a FastAPI service with Groq-powered tutoring, MongoDB persistence, and optional Redis-backed short-term memory.
+![EduNex AI Tutor](https://img.shields.io/badge/Status-Active-brightgreen.svg)
+![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-blue)
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
 
-## Features
+EduNex AI Tutor is a revolutionary full-stack adaptive learning platform that fundamentally changes how students learn by explaining complex topics through the lens of a learner's personal interests. Whether a student loves gaming, cricket, music, or coding, EduNex dynamically adapts its teaching style to keep them engaged.
 
-- Interest-based explanations tailored to topics like gaming, cricket, music, coding, and more
-- Modern Next.js dashboard with onboarding, chat, profile, and progress views
-- FastAPI backend with modular chat, user, and progress APIs
-- MongoDB for long-term user and chat storage
-- Redis support for short-term conversational memory and caching
-- Groq LLM integration with graceful fallback behavior when the API key is missing
+---
 
-## Tech Stack
+## 🚀 Key Features
 
-- Frontend: Next.js 14, React 18, TypeScript, Tailwind CSS, Zustand, React Query, Recharts, Framer Motion
-- Backend: FastAPI, Uvicorn, Pydantic v2, Loguru
-- Data: MongoDB, Redis
-- AI: Groq API
+### 🧠 Adaptive Learning Engine
+- **Interest-Based Explanations**: Concepts are tailored to user interests (e.g., explaining physics using cricket).
+- **Dynamic Pacing**: Adjusts difficulty based on user comprehension.
+- **Context-Aware Interactions**: Uses memory to recall past conversations and build upon previously learned concepts.
 
-## Project Structure
+### 💻 Modern Frontend Experience
+- **Next.js 14 App Router**: Lightning-fast page loads and server-side rendering.
+- **Tailwind CSS & Framer Motion**: Beautiful, responsive, and animated user interface.
+- **Zustand State Management**: Efficient and seamless global state handling.
+- **Interactive Dashboards**: Comprehensive views for onboarding, chat interactions, profile settings, and progress tracking.
+
+### ⚙️ Robust Backend Architecture
+- **FastAPI**: High-performance, asynchronous Python backend.
+- **Groq LLM Integration**: Powered by blazing fast Groq AI models for real-time tutoring.
+- **MongoDB**: Persistent and scalable storage for users, chat histories, and progress data.
+- **Redis Integration**: Short-term memory caching and fast state retrieval for active sessions.
+- **Modular APIs**: Cleanly separated endpoints for chat, users, and progress metrics.
+
+---
+
+## 🛠️ Technology Stack
+
+### Frontend
+- **Framework**: Next.js 14 (React 18)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand, React Query
+- **Charts & Animations**: Recharts, Framer Motion
+
+### Backend
+- **Framework**: FastAPI, Uvicorn
+- **Language**: Python 3.10+
+- **Data Validation**: Pydantic v2
+- **Logging**: Loguru
+
+### Database & Caching
+- **Primary Database**: MongoDB
+- **In-Memory Store**: Redis
+
+### AI Integrations
+- **Provider**: Groq API
+- **Fallback**: Graceful local fallback mechanism if API keys are missing.
+
+---
+
+## 📂 Project Structure
 
 ```text
 edunex-ai-tutor/
-|-- src/                  # Next.js app, components, store, hooks, utilities
-|-- backend/
+|-- src/                  # Next.js frontend application
+|   |-- app/              # Next.js App Router pages
+|   |-- components/       # Reusable React components (UI, Chat, Dashboard)
+|   |-- store/            # Zustand stores
+|   |-- hooks/            # Custom React hooks
+|   `-- lib/              # Utility functions
+|-- backend/              # FastAPI backend application
 |   |-- app/
-|   |   |-- api/          # FastAPI route modules
-|   |   |-- core/         # Settings and shared config
-|   |   |-- db/           # MongoDB and Redis clients
-|   |   |-- models/       # MongoDB document helpers
-|   |   |-- schemas/      # Pydantic request/response schemas
-|   |   |-- services/     # AI, interest detection, memory logic
-|   |   `-- utils/        # Prompt builders and utilities
-|   |-- requirements.txt
-|   `-- .env.example
-|-- package.json
-`-- README.md
+|   |   |-- api/          # FastAPI route endpoints
+|   |   |-- core/         # Settings, configuration, and security
+|   |   |-- db/           # MongoDB and Redis connection managers
+|   |   |-- models/       # Database models
+|   |   |-- schemas/      # Pydantic schemas for data validation
+|   |   |-- services/     # Core business logic (AI, memory, users)
+|   |   `-- utils/        # Prompt engineering and helpers
+|   |-- requirements.txt  # Python dependencies
+|   `-- .env.example      # Environment variables template
+|-- package.json          # Node.js dependencies
+`-- README.md             # Project documentation
 ```
 
-## Frontend Setup
+---
 
-Install dependencies and start the frontend:
+## 🚦 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- Python (v3.10 or higher)
+- MongoDB running locally or a MongoDB Atlas URI
+- Redis server (optional, but recommended for caching)
+- Groq API Key
+
+### 1️⃣ Frontend Setup
+
+Navigate to the project root and install dependencies:
 
 ```bash
+# Install frontend dependencies
 npm install
+
+# Start the frontend development server
 npm run dev
 ```
 
-Frontend runs at `http://localhost:3000`.
+The application will be available at `http://localhost:3000`.
 
-## Backend Setup
+### 2️⃣ Backend Setup
 
-Create and activate a virtual environment, then install backend dependencies:
+Open a new terminal window and navigate to the backend directory:
 
 ```bash
 cd backend
+
+# Create a virtual environment
 python -m venv venv
+
+# Activate the virtual environment
+# On Windows:
 venv\Scripts\activate
+# On macOS/Linux:
+# source venv/bin/activate
+
+# Install backend dependencies
 pip install -r requirements.txt
 ```
 
-Copy `.env.example` to `.env` and fill in your values.
+### 3️⃣ Environment Variables Configuration
 
-Start the backend:
+Copy the example environment file and add your credentials:
 
 ```bash
-venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+cp .env.example .env
 ```
 
-Backend docs are available at `http://127.0.0.1:8000/docs`.
+**Essential Environment Variables (`backend/.env`):**
+```env
+# AI Provider Configuration
+GROQ_API_KEY=your_groq_api_key_here
+GROQ_MODEL=llama3-70b-8192
 
-## Environment Variables
+# Database Connections
+MONGODB_URL=mongodb://localhost:27017
+MONGODB_DB_NAME=edunex_db
 
-Backend uses these main variables:
+# Redis Caching (Optional)
+REDIS_URL=redis://localhost:6379
 
-- `GROQ_API_KEY`
-- `GROQ_MODEL`
-- `MONGODB_URL`
-- `MONGODB_DB_NAME`
-- `REDIS_URL`
-- `APP_NAME`
-- `APP_VERSION`
-- `DEBUG`
-- `CORS_ORIGINS`
-- `CHAT_MEMORY_TTL`
-- `MAX_MEMORY_MESSAGES`
+# Application Settings
+APP_NAME="EduNex AI Backend"
+APP_VERSION="1.0.0"
+DEBUG=True
+CORS_ORIGINS=["http://localhost:3000"]
+```
 
-See [backend/.env.example](./backend/.env.example) for the full template.
+### 4️⃣ Start the Backend Server
 
-## Notes
+With the virtual environment activated, run:
 
-- MongoDB is expected for persistent storage.
-- Redis is optional; if unavailable, the backend runs in degraded mode without cache.
-- If `GROQ_API_KEY` is not configured, AI responses fall back to a local helper response.
+```bash
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
 
-## License
+The backend server will run at `http://127.0.0.1:8000`.
+You can access the interactive API documentation (Swagger UI) at `http://127.0.0.1:8000/docs`.
 
-This project is currently unlicensed unless you add a license file to the repository.
+---
+
+## 📖 API Documentation
+
+The FastAPI backend provides comprehensive, automatically generated API documentation. Here are the core endpoints:
+
+### User Management
+- `POST /api/users/` - Create a new user profile
+- `GET /api/users/{user_id}` - Retrieve user details
+- `PUT /api/users/{user_id}/interests` - Update user learning interests
+
+### Chat & AI Tutoring
+- `POST /api/chat/message` - Send a message to the AI tutor and receive an interest-based response
+- `GET /api/chat/history/{user_id}` - Retrieve chat history for a specific user
+
+### Progress Tracking
+- `GET /api/progress/{user_id}` - Get user's learning progress and stats
+- `POST /api/progress/update` - Update progress metrics after a study session
+
+---
+
+## 🔧 Troubleshooting
+
+- **MongoDB Connection Error**: Ensure MongoDB is running on port 27017 or update the `MONGODB_URL` in your `.env` file.
+- **AI Responses are Generic**: Check that your `GROQ_API_KEY` is set correctly. If missing, the app uses a fallback mode.
+- **CORS Errors**: Verify that `CORS_ORIGINS` in `.env` includes the exact URL of your frontend (e.g., `http://localhost:3000`).
+- **Redis Warning Logs**: If Redis is not installed, the backend will safely degrade to run without caching. This is normal behavior unless you explicitly require Redis.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+*Built with ❤️ for personalized education.*

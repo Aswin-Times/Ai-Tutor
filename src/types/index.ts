@@ -108,6 +108,7 @@ export interface ChatRequest {
   message: string;
   sessionId: string;
   interests: Interest[];
+  userId?: string;
 }
 
 /** Chat completion response */

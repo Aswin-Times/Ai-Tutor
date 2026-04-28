@@ -110,11 +110,11 @@ export const useChatStore = create<ChatState>((set, get) => ({
     }));
 
     try {
-      // Stream the response
       const stream = streamChatMessage({
         message: content,
         sessionId: sessionId!,
         interests,
+        userId: "default-user",
       });
 
       let fullContent = "";
